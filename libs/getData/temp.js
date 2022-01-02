@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { upperFirstLetter } = require('../common');
 
 const temp = () => {
   let tempObject = {};
@@ -12,9 +13,8 @@ const temp = () => {
     const typeTemp =
       fs.readFileSync(`${dirString}/thermal_zone${zoneNumber}/temp`,
         'utf-8');
-    tempObject[`temp${typeName.split('-')[0]}`] = Number(typeTemp) / 1000;
+    tempObject[`TEMP_${upperFirstLetter(typeName.split('-')[0])}`] = Number(typeTemp) / 1000;
   });
-  tempObject['timestamp'] = Date.now();
   return tempObject;
 };
 
