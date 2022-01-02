@@ -6,11 +6,22 @@ const lastData = async (list) => {
 };
 
 const data = async (list, from, to) => {
-  const value = await cursor.lRange(list, from, to)
-  return value
-}
+  const value = await cursor.lRange(list, from, to);
+  return value;
+};
+
+const listLen = async (list) => {
+  const len = await cursor.lLen(list);
+  return len;
+};
+
+const listTrim = (list) => {
+  cursor.lTrim(list, 0, 3599);
+};
 
 module.exports = {
   lastData,
-  data
-}
+  data,
+  listLen,
+  listTrim,
+};
