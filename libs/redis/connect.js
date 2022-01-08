@@ -1,8 +1,7 @@
 const redis = require('redis');
 
 const client = redis.createClient({
-  host: 'localhost',
-  port: 6379,
+	url:'redis://10.10.0.10:6379'
 });
 
 client.on('error', (error) => {

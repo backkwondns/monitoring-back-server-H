@@ -1,0 +1,3 @@
+docker-compose.yaml
+./monitoring-db
+*.log
