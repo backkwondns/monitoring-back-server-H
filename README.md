@@ -1,3 +1,6 @@
+#### For Control Fan
+`sudo chmod 666 /sys/devices/pwm-fan/target_pwm`
+
 ##list of store
 #### CPU
 - CPU_AVG
@@ -28,3 +31,4 @@
 
 #### TIMESTAMP
 - timeStamp
+

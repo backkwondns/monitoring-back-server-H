@@ -1,6 +1,9 @@
 const infoCollection = require('./aggregateInfo');
 const lpushStore = require('./redis/set');
+const {listLen, listTrim} = require('./redis/get');
 const { upperFirstLetter } = require('./common');
+
+const listOfStore = require('../listOfStore');
 
 const toDB = async () => {
   const infos = await infoCollection();
@@ -25,6 +28,11 @@ const toDB = async () => {
 
   //Store TimeStamp
   lpushStore('timeStamp', Date.now().toString());
+
+	// delete old data
+  for (const value of listOfStore) {
+   	if ((await listLen(value)) > 10800) listTrim(value);
+ 	}
 };
 
 module.exports = toDB;

@@ -16,7 +16,7 @@ const listLen = async (list) => {
 };
 
 const listTrim = (list) => {
-  cursor.lTrim(list, 0, 3599);
+  cursor.lTrim(list, 0, 10799);
 };
 
 module.exports = {

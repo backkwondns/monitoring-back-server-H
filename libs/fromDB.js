@@ -10,9 +10,18 @@ const lastFromDB = async () => {
 };
 
 const multiFromDB = async () => {
-  let multiInfo = {};
+  let tmpInfo = {};
+  let multiInfo = [];
+
   for (const value of listOfStore) {
-    multiInfo[value] = await data(value, 0, 29).then((value1) => value1);
+    tmpInfo[value] = await data(value, 0, 29);
+  }
+  for (let index of Array(30).keys()) {
+    let tmp1Info = {};
+    for (let key of Object.keys(tmpInfo)) {
+      tmp1Info[key] = tmpInfo[key][index];
+    }
+    multiInfo.push(tmp1Info);
   }
   return multiInfo;
 };
