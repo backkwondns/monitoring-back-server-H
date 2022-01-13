@@ -19,9 +19,27 @@ const listTrim = (list) => {
   cursor.lTrim(list, 0, 10799);
 };
 
+const hashGet = async (hash) => {
+  const result = await cursor.hGet(hash, 'password');
+  return result;
+};
+
+const hashVal = async (hash) => {
+  const result = await cursor.hGetAll(hash);
+  return result;
+};
+
+const zSetGet = async (set, from, to) => {
+  const result = await cursor.zRange(set, from, to, { BY: 'SCORE' });
+  return result;
+};
+
 module.exports = {
   lastData,
   data,
   listLen,
   listTrim,
+  hashGet,
+  hashVal,
+  zSetGet,
 };

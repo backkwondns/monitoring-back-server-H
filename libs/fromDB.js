@@ -1,5 +1,6 @@
-const { lastData, data, listLen, listTrim } = require('./redis/get');
+const { lastData, data, listLen, listTrim, hashGet, hashVal, zSetGet } = require('./redis/get');
 const listOfStore = require('../listOfStore');
+const bcrypt = require('bcryptjs');
 
 const lastFromDB = async () => {
   let allInfo = {};
@@ -32,8 +33,23 @@ const clearOldDB = async () => {
   }
 };
 
+const compareAuth = async (id, password) => {
+  fromPassword = await hashGet(id);
+  return typeof fromPassword === 'string' ? await bcrypt.compare(password, fromPassword) : false;
+};
+
+const getSetting = async (id) => {
+  const hashResult = await hashVal(id);
+  delete hashResult.password;
+  const listResult = await zSetGet(`${id}_LIST`, 0, 20);
+  result = { selectedChart: hashResult, listChart: listResult };
+  return result;
+};
+
 module.exports = {
   lastFromDB,
   multiFromDB,
   clearOldDB,
+  compareAuth,
+  getSetting,
 };
