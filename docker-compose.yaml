@@ -9,10 +9,10 @@ services:
     networks:
       monitoring-network:
         ipv4_address: 10.10.0.10
-  node:
+  monitoring:
     image: node:16.13.1-alpine
     ports:
-      - 4000:3000
+      - 4000:4000
     build: .
     links:
       - "monitoring-redis:db"
